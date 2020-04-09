@@ -1,13 +1,13 @@
 <template>
     <div class="chat container">
-        <h2 class="center teal-text">Eddies Chatroom</h2>
+        <h2 class="center purple-text">Eddies Chatroom</h2>
         <div class="card">
             <div class="card-content">
                 <ul class="messages" v-chat-scroll>
                     <li v-for="message in messages" :key="message.id">
-                        <span class="teal-text">{{ message.name }}</span>
-                        <span class="grey-text text-darken-3">{{ message.content }}</span>
-                        <span class="grey-text time">{{ message.timestamp }}</span>
+                        <span class="green-text">{{ message.name }}</span>
+                        <span class="black-text text-darken-3">{{ message.content }}</span>
+                        <span class="purple-text time">{{ message.timestamp }}</span>
                     </li>
                 </ul>
             </div>
@@ -57,7 +57,7 @@ export default {
 <style>
 .chat h2{
     font-size: 2.6em;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .chat span{
     font-size: 1.4em;

@@ -97,4 +97,8 @@ export default {
 .chip{
   background-color: #4caf50;
 }
+
+body {
+  background-color: #66bb6a;
+}
 </style>

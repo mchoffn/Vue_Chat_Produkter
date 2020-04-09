@@ -2,12 +2,12 @@
     <div class="welcome container">
         <div class="card">
             <div class="card-content center-align">
-                <h2 class="teal-text">Welcome</h2>
+                <h2 class="purple-text">Welcome</h2>
                 <form @submit.prevent="enterChat">
                     <label for="name">Enter your name</label>
                     <input type="text" name="name" v-model="name">
                     <p v-if="feedback" class="red-text">{{ feedback }}</p>
-                    <button class="btn teal">Enter Chat</button>
+                    <button class="btn purple">Enter Chat</button>
                 </form>
             </div>
         </div>
