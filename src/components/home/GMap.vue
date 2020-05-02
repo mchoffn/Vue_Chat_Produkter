@@ -33,8 +33,8 @@ export default {
         renderMap(){
             const map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: this.lat, lng: this.lng },
-                zoom: 6,
-                maxZoom: 15,
+                zoom: 20,
+                maxZoom: 20,
                 minZoom: 3,
                 streetViewControl: false
             })
