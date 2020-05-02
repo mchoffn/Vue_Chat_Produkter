@@ -5,6 +5,9 @@ import AddSmoothie from '@/components/AddSmoothie'
 import EditSmoothie from '@/components/EditSmoothie'
 import Chat from '@/components/Chat'
 import Welcome from '@/components/Welcome'
+import GMap from '@/components/home/GMap'
+import Signup from '@/components/auth/Signup'
+import Login from '@/components/auth/Login'
 
 Vue.use(Router)
 
@@ -44,6 +47,21 @@ export default new Router({
         next({ name: 'Welcome' })
       }
     }
+    },
+    {
+      path: '/home/gmap', 
+      name: 'GMap', 
+      component: GMap
+    },
+    {
+      path: '/auth/signup', 
+      name: 'Signup', 
+      component: Signup
+    },
+    {
+      path: '/auth/login', 
+      name: 'Login', 
+      component: Login
     }
   ]
 })

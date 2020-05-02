@@ -87,6 +87,8 @@ export default {
     margin-top:60px;
     padding: 20px;
     max-width: 500px;
+    background:white;
+    border-radius: 10px;
 
 }
 
