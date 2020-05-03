@@ -6,12 +6,7 @@
 <div class="map">
         <div class="google-map" id="map">
         </div>
-<div class="center-align">
-  <button v-if="!user" class="btn signup-btn purple lighten-1"><router-link :to="{ name: 'Signup' }">Signup</router-link></button>
-  <button v-if="!user" class="btn login-btn purple lighten-1"><router-link :to="{ name: 'Login' }">Login</router-link></button>
-  <li v-if="user"><a class="black-text">{{ user.email }}</a></li>
-  <button v-if="user" @click="logout" class="btn login-btn purple lighten-1">Logout</button>
-</div>
+
   
 
 
@@ -28,7 +23,6 @@ export default {
         return {
             lat: 56,
             lng: 12,
-            modal: false,
             user: null
         }
     },
