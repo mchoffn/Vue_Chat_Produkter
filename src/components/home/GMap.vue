@@ -7,9 +7,10 @@
         <div class="google-map" id="map">
         </div>
 <div class="center-align">
-  <button class="btn signup-btn purple lighten-1"><router-link :to="{ name: 'Signup' }">Signup</router-link></button>
-  <button class="btn login-btn purple lighten-1"><router-link :to="{ name: 'Login' }">Login</router-link></button>
-  <button @click="logout" class="btn login-btn purple lighten-1">Logout</button>
+  <button v-if="!user" class="btn signup-btn purple lighten-1"><router-link :to="{ name: 'Signup' }">Signup</router-link></button>
+  <button v-if="!user" class="btn login-btn purple lighten-1"><router-link :to="{ name: 'Login' }">Login</router-link></button>
+  <li v-if="user"><a class="black-text">{{ user.email }}</a></li>
+  <button v-if="user" @click="logout" class="btn login-btn purple lighten-1">Logout</button>
 </div>
   
 
@@ -20,13 +21,15 @@
 
 <script>
 import firebase from 'firebase'
+import db from '@/firebase/init'
 export default {
     name: 'GMap',
     data(){
         return {
             lat: 56,
             lng: 12,
-            modal: false
+            modal: false,
+            user: null
         }
     },
     methods:{
@@ -38,6 +41,26 @@ export default {
                 minZoom: 3,
                 streetViewControl: false
             })
+
+            db.collection('users').get().then(users => {
+                users.docs.forEach(doc => {
+                    let data = doc.data()
+                    if(data.geolocation){
+                        let marker = new google.maps.Marker({
+                            position: {
+                                lat: data.geolocation.lat,
+                                lng: data.geolocation.lng
+                            },
+                            map
+                        })
+                        // add click event to marker
+                        marker.addListener('click', () => {
+                            console.log(doc.id)
+                            this.$router.push({ name: 'ViewProfile', params: { id: doc.id }})
+                        })
+                    }
+                })
+            })
         },
         logout(){ // this is a a-syncronis method, meaning it takes some time to complete and it returns a promise
             firebase.auth().signOut().then(() => {
@@ -45,12 +68,40 @@ export default {
             })
         }
     },
+    created(){
+       // let user = firebase.auth().currentUser
+       firebase.auth().onAuthStateChanged((user) =>{
+           if(user){
+               this.user = user
+           } else {
+               this.user = null
+           }
+       })
+    },
     mounted(){
+        // get the current user
+        let user = firebase.auth().currentUser // the ui in the console is what firebase create automatically in the database, when
+                                              // a user signs up
+        
         // get the users geo location
         if( navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos =>{
                 this.lat = pos.coords.latitude
                 this.lng = pos.coords.longitude
+
+                // find the user record and then update geocoords // this function takes 3 parameters
+                db.collection('users').where('user_id', '==', user.uid).get()
+                .then(snapshot => {
+                    snapshot.forEach((doc) => {
+                        console.log(doc.id)
+                        db.collection('users').doc(doc.id).update({
+                            geolocation: {
+                                lat: pos.coords.latitude,
+                                lng: pos.coords.longitude
+                            }
+                        })
+                    });
+                })
                 this.renderMap()
             }, (err) => {
                 console.log(err)
@@ -61,6 +112,7 @@ export default {
             this.renderMap()
         }
     }
+
 }
 </script>
 
