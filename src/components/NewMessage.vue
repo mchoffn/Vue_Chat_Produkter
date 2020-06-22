@@ -25,7 +25,7 @@ export default {
     methods: {
         addMessage(){
             if(this.newMessage){
-                db.collection('messages').add({
+                db.firestore().collection('messages').add({
                     content: this.newMessage,
                     name: this.name,
                     timestamp: Date.now()

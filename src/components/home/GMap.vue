@@ -36,7 +36,7 @@ export default {
                 streetViewControl: false
             })
 
-            db.collection('users').get().then(users => {
+            db.firestore().collection('users').get().then(users => {
                 users.docs.forEach(doc => {
                     let data = doc.data()
                     if(data.geolocation){
@@ -84,11 +84,11 @@ export default {
                 this.lng = pos.coords.longitude
 
                 // find the user record and then update geocoords // this function takes 3 parameters
-                db.collection('users').where('user_id', '==', user.uid).get()
+                db.firestore().collection('users').where('user_id', '==', user.uid).get()
                 .then(snapshot => {
                     snapshot.forEach((doc) => {
                         console.log(doc.id)
-                        db.collection('users').doc(doc.id).update({
+                        db.firestore().collection('users').doc(doc.id).update({
                             geolocation: {
                                 lat: pos.coords.latitude,
                                 lng: pos.coords.longitude

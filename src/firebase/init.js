@@ -17,4 +17,4 @@ var config = {
  
 
 
-export default firebaseApp.firestore()
+export default firebaseApp;

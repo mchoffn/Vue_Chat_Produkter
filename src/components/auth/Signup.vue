@@ -46,7 +46,7 @@ export default {
                     remove: /[$*_+~.()'"!\-:@]/g,
                     lower: true
                 })
-                let ref = db.collection('users').doc(this.slug)
+                let ref = db.firestore().collection('users').doc(this.slug)
                 ref.get().then(doc => {
                     if(doc.exists){
                         this.feedback = "This alias already exists"

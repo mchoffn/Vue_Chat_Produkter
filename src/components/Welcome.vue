@@ -2,12 +2,12 @@
     <div class="welcome container">
         <div class="card">
             <div class="card-content center-align">
-                <h2 class="purple-text">Welcome</h2>
+                <h2 class="black-text">Welcome</h2>
                 <form @submit.prevent="enterChat">
                     <label for="name">Enter your name</label>
                     <input type="text" name="name" v-model="name">
                     <p v-if="feedback" class="red-text">{{ feedback }}</p>
-                    <button class="btn purple">Enter Chat</button>
+                    <button class="btn enter-btn">Enter Chat</button>
                 </form>
             </div>
         </div>
@@ -48,5 +48,14 @@ export default {
 }
 .welcome button{
     margin: 30px auto;
+}
+
+.enter-btn{
+    background-color: #749ef9;
+}
+
+.enter-btn:hover{
+    background-color: #697fe5;
+
 }
 </style>

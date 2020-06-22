@@ -1,6 +1,6 @@
 <template>
     <div class="add-smoothie container">
-     <h2 class="center-align purple-text">Tilføj et nyt produkt</h2>
+     <h2 class="center-align black-text">Tilføj et nyt produkt</h2>
      <form @submit.prevent="AddSmoothie">
       <div class="field title">
          <label for="title">Produkt titel:</label>
@@ -17,7 +17,7 @@
       </div>
       <div class="field center-align">
           <p v-if="feedback" class="red-text">{{ feedback }}</p>
-          <button class="btn purple lighten-1">Tilføj produkt</button>
+          <button class="btn btn-add">Tilføj produkt</button>
       </div>
      </form>
     </div>
@@ -50,12 +50,12 @@ export default {
                   remove: /[$*_+~.()'"!\-:@]/g, 
                   lower: true
               })
-              db.collection('smoothies').add({
+              db.firestore().collection('smoothies').add({
                   title: this.title,
                   ingredients: this.ingredients,
                   slug: this.slug
               }).then(() => {
-                  this.$router.push({ name: 'Index' }) // this sends the user back to the index page when pushed through the router
+                  this.$router.push({ name: 'ViewProducts' }) // this sends the user back to the index page when pushed through the router
               }).catch(err => {
                   console.log(err)
               })
@@ -83,6 +83,14 @@ export default {
 
 <style>
 
+.btn-add{
+    background-color: #749ef9;
+}
+
+.btn-add:hover{
+    background-color: #697fe5;
+
+}
 .add-smoothie{
     margin-top:60px;
     padding: 20px;

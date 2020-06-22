@@ -1,40 +1,26 @@
 <template>
+
     <div class="navbar">
-
-
-
-        
-        <nav class="nav-extended yellow center-align">
-            <div class="nav-content">
-
-                <router-link :to="{name: 'Index'}">
-                    <span class="nav-title purple-text">Eddies Markedsplads</span>
-                </router-link>
-                <a href="" class="add-btn btn-floating btn-large halfway-fab purple lighten-1">
-                    <router-link :to="{name: 'AddSmoothie'}">
-                        <i class="material-icons">add</i>
-                    </router-link>
-
-                </a>
-            </div>
+        <nav class="nav-extended navnav center-align">
+            
             
             <div class="row navigation">
-      <div class="col s4"><router-link :to="{name: 'Index'}" class="purple-text">Opslagstavle med Eddies produkter</router-link></div>
-      <div class="col s4">
+                 <div class="col s4"><router-link :to="{name: 'ViewProducts'}" class="black-text">Opslagstavle med produkter</router-link></div>
+                  <div class="col s4">
           
-          <div class=""><router-link :to="{name: 'GMap'}" class="purple-text">Google Map</router-link>
+              <div class=""><router-link :to="{name: 'GMap'}" class="black-text">Google Map</router-link>
           
-        </div>
-      </div>
-      <div class="col s4"><router-link :to="{name: 'Welcome'}" class="purple-text">Realtime chat med Eddie og Charlie</router-link></div>
+               </div>
+              </div>
+                 <div class="col s4"><router-link :to="{name: 'Welcome'}" class="black-text">Realtime chat med Eddie og Charlie</router-link></div>
       
 
-    <div class="center-align">
-  <button v-if="!user" class="btn signup-btn purple lighten-1"><router-link :to="{ name: 'Signup' }">Signup</router-link></button>
-  <button v-if="!user" class="btn login-btn purple lighten-1"><router-link :to="{ name: 'Login' }">Login</router-link></button>
-  <button v-if="user" @click="logout" class="btn login-btn purple lighten-1">Logout</button>
-  <div v-if="user"><a class="black-text">{{ user.email }}</a></div>
-</div>
+             <div class="center-align">
+          <button v-if="!user" class="btn signup-btn"><router-link :to="{ name: 'Signup' }">Signup</router-link></button>
+         <button v-if="!user" class="btn login-btn"><router-link :to="{ name: 'Login' }">Login</router-link></button>
+         <button v-if="user" @click="logout" class="btn login-btn">Logout</button>
+            <div v-if="user"><a class="black-text">{{ user.email }}</a></div>
+    </div>
 
 
     </div>
@@ -63,7 +49,7 @@ export default {
                 streetViewControl: false
             })
 
-            db.collection('users').get().then(users => {
+            db.firestore().collection('users').get().then(users => {
                 users.docs.forEach(doc => {
                     let data = doc.data()
                     if(data.geolocation){
@@ -111,11 +97,11 @@ export default {
                 this.lng = pos.coords.longitude
 
                 // find the user record and then update geocoords // this function takes 3 parameters
-                db.collection('users').where('user_id', '==', user.uid).get()
+                db.firestore().collection('users').where('user_id', '==', user.uid).get()
                 .then(snapshot => {
                     snapshot.forEach((doc) => {
                         console.log(doc.id)
-                        db.collection('users').doc(doc.id).update({
+                        db.firestore().collection('users').doc(doc.id).update({
                             geolocation: {
                                 lat: pos.coords.latitude,
                                 lng: pos.coords.longitude
@@ -141,10 +127,31 @@ export default {
 .add-btn{
     position:absolute;
     top: 25px;
+    background-color: #749ef9;
 }
 
 .navigation{
     font-size: 1.2em;
+}
+
+.navnav{
+    background-color:#F9CF74;
+}
+
+.login-btn{
+    background-color: #749ef9;
+}
+
+.login-btn:hover{
+    background-color: #697fe5;
+}
+
+.signup-btn{
+    background-color: #749ef9;
+}
+
+.signup-btn:hover{
+    background-color: #697fe5;
 }
 
 

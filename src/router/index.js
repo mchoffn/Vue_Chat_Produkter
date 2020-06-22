@@ -10,6 +10,7 @@ import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
 import ViewProfile from '@/components/profile/ViewProfile'
 import firebase from 'firebase'
+import ViewProducts from '@/components/ViewProducts'
 
 
 Vue.use(Router)
@@ -27,6 +28,11 @@ const router = new Router({
       path: '/welcome',
       name: 'Welcome',
       component: Welcome
+    },
+    {
+      path: '/viewproducts',
+      name: 'ViewProducts',
+      component: ViewProducts
     },
      {
       path: '/add-smoothie', 

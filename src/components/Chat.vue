@@ -1,13 +1,13 @@
 <template>
     <div class="chat container">
-        <h2 class="center purple-text">Eddies Chatroom</h2>
+        <h2 class="center black-text">Eddies Chatroom</h2>
         <div class="card">
             <div class="card-content">
                 <ul class="messages" v-chat-scroll>
                     <li v-for="message in messages" :key="message.id">
-                        <span class="green-text">{{ message.name }}</span>
-                        <span class="black-text text-darken-3">{{ message.content }}</span>
-                        <span class="purple-text time">{{ message.timestamp }}</span>
+                        <span class="msg-name">{{ message.name }}</span>
+                        <span class="msg-content">{{ message.content }}</span>
+                        <span class="time text-time">{{ message.timestamp }}</span>
                     </li>
                 </ul>
             </div>
@@ -35,7 +35,7 @@ export default {
         }
     },
     created(){
-        let ref = db.collection('messages').orderBy('timestamp')
+        let ref = db.firestore().collection('messages').orderBy('timestamp')
         
         ref.onSnapshot(snapshot => {
             snapshot.docChanges().forEach(change => {
@@ -55,6 +55,14 @@ export default {
 </script>
 
 <style>
+
+.msg-name{
+    color:#749ef9;
+}
+.text-time{
+    color:rgb(146, 145, 145);
+}
+
 .chat h2{
     font-size: 2.6em;
     margin-bottom: 20px;

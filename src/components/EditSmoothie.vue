@@ -1,6 +1,6 @@
 <template>
     <div v-if="smoothie" class="edit-smoothie container">
-        <h2 class="purple-text"> Edit {{ smoothie.title }} Smoothie</h2>
+        <h2 class="black-text"> Edit {{ smoothie.title }} Smoothie</h2>
         <form @submit.prevent="EditSmoothie">
       <div class="field title">
          <label for="title">Produkt titel:</label>
@@ -17,7 +17,7 @@
       </div>
       <div class="field center-align">
           <p v-if="feedback" class="red-text">{{ feedback }}</p>
-          <button class="btn purple lighten-1">Opdater produkt</button>
+          <button class="btn update-btn">Opdater produkt</button>
       </div>
      </form>
     </div>
@@ -47,12 +47,12 @@ export default {
                   remove: /[$*_+~.()'"!\-:@]/g, 
                   lower: true
               })
-              db.collection('smoothies').doc(this.smoothie.id).update({
+              db.firestore().collection('smoothies').doc(this.smoothie.id).update({
                   title: this.smoothie.title,
                   ingredients: this.smoothie.ingredients,
                   slug: this.smoothie.slug
               }).then(() => {
-                  this.$router.push({ name: 'Index' }) // this sends the user back to the index page when pushed through the router
+                  this.$router.push({ name: 'ViewProducts' }) // this sends the user back to the index page when pushed through the router
               }).catch(err => {
                   console.log(err)
               })
@@ -77,7 +77,7 @@ export default {
   },
  
  created(){
-     let ref = db.collection('smoothies').where('slug', '==', this.$route.params.smoothie_slug) // denne where method skal ha 3 parametre. Led efter 'xx' som er 'bigger, smaller or equal' to 'xxx'
+     let ref = db.firestore().collection('smoothies').where('slug', '==', this.$route.params.smoothie_slug) // denne where method skal ha 3 parametre. Led efter 'xx' som er 'bigger, smaller or equal' to 'xxx'
      ref.get().then(snapshot => {
          snapshot.forEach(doc => {
          this.smoothie = doc.data()
@@ -91,10 +91,21 @@ export default {
 
 
 <style>
+
+.update-btn{
+    background-color: #749ef9;
+}
+
+.update-btn:hover{
+    background-color: #697fe5;
+
+}
 .edit-smoothie{
     margin-top:60px;
     padding: 20px;
     max-width: 500px;
+    background-color: white;
+    border-radius: 25px;
 
 }
 

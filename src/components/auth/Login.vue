@@ -1,7 +1,7 @@
 <template>
     <div class="login container">
         <form @submit.prevent="login" class="card-panel">
-            <h2 class="center deep-purple-text">Login</h2>
+            <h2 class="center black-text">Login</h2>
             <div class="field">
                 <label for="email">Email</label>
                 <input type="email" name="email" v-model="email">
@@ -12,7 +12,7 @@
             </div>
             <p v-if="feedback" class="red-text center"> {{ feedback }} </p>
             <div class="field">
-                <button class="btn deep-purple">Login</button>
+                <button class="btn login-btn">Login</button>
             </div>
         </form>
     </div>
@@ -67,4 +67,8 @@ export default {
     margin-bottom: 16px;
 }
 
+
+.card-panel{
+    border-radius: 25px;
+}
 </style>
