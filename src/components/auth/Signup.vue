@@ -1,7 +1,7 @@
 <template> 
     <div class="signup container">
-        <form @submit.prevent="signup" class="card-panel" >
-            <h2 class="center deep-purple-text">Signup</h2>
+        <form @submit.prevent="signup" class="card-panel panelpanel" >
+            <h2 class="center black-text">Signup</h2>
             <div class="field">
                 <label for="email">Email</label>
                 <input type="email" name="email" v-model="email">
@@ -16,7 +16,7 @@
             </div>
             <p class="red-text center" v-if="feedback">{{ feedback }}</p>
             <div class="field center">
-                <button class="btn deep-purple">Signup</button>
+                <button class="btn signup-btn">Signup</button>
             </div>
         </form>
     </div>
@@ -90,5 +90,12 @@ font-size: 2.4em;
     margin-bottom: 16px;
 }
 
+.panelpanel{
+    border-radius: 25px;
+}
+
+.signup-btn{
+    background-color: #749ef9;
+}
 
 </style>
