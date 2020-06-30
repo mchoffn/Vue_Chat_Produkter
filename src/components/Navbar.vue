@@ -12,7 +12,7 @@
           
                </div>
               </div>
-                 <div class="col s4"><router-link :to="{name: 'Welcome'}" class="black-text">Realtime chat med Eddie og Charlie</router-link></div>
+                 <div class="col s4"><router-link :to="{name: 'Welcome'}" class="black-text">Realtime chat med Firebase</router-link></div>
       
 
              <div class="center-align">
